@@ -9,17 +9,10 @@ namespace UserMaintenance.Entities
     class User
     {
         public Guid ID { get; set; } = Guid.NewGuid();
-        public string Keresztnev { get; set; }
-        public string Vezeteknev { get; set; }
-        public string Teljesnev
+        
+        public string Teljesev
         {
-            get
-            {
-                return string.Format(
-                    "{0} {1}",
-                    Keresztnev,
-                    Vezeteknev);
-            }
+            get;set;
         }
     }
 }
