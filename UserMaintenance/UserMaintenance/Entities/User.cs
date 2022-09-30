@@ -11,7 +11,7 @@ namespace UserMaintenance.Entities
         public Guid ID { get; set; } = Guid.NewGuid();
         public string Keresztnev { get; set; }
         public string Vezeteknev { get; set; }
-        public string TeljesNev
+        public string Teljesnev
         {
             get
             {
