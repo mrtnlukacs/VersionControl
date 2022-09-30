@@ -32,8 +32,7 @@ namespace UserMaintenance
             var u = new User()
             {
 
-                Keresztnev = textBox1.Text,
-                Vezeteknev = textBox2.Text
+                Teljesev = textBox1.Text
             };
             users.Add(u);
         }
