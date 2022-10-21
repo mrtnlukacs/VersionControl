@@ -17,6 +17,7 @@ namespace week05_va4ezb
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
+        BindingList<string> Currencies = new BindingList<string>();
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace week05_va4ezb
         private void refresh()
         {
             Rates.Clear();
+            comboBox1.DataSource = Currencies;
             dataGridView1.DataSource = Rates;
             lekerd();
             diagram();
