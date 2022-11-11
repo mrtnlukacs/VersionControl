@@ -75,12 +75,14 @@ namespace week07_va4ezb
                 using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
                 {
                     sw.WriteLine("Időszak" + ";"+"Nyerség");
+                    int szaml = 0;
                     foreach (var p in Ticks)
                     {
-                        sw.Write(p.TradingDay.ToString());
+                        sw.Write(szaml.ToString());
                         sw.Write(";");
                         sw.Write(p.Price.ToString());
                         sw.WriteLine();
+                        szaml++;
                     }
                   
                 }
