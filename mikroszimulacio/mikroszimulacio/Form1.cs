@@ -24,7 +24,7 @@ namespace mikroszimulacio
         public Form1()
         {
             InitializeComponent();
-            Population = GetPopulation(@"C:\Temp\nép.csv");
+            Population = GetPopulation(textBox1.Text);
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
             
@@ -32,11 +32,11 @@ namespace mikroszimulacio
         }
         private void Simualation()
         {
-            for (int year = 2025; year <= 2024; year++)
+            for (int year = 2025; year <= numericUpDown1.Value; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-                    SimStep(year, );
+                    SimStep(year, Population[i]);
                 }
                 int ferfiakszama = (from x in Population
                                     where x.Neme == Gender.Male && x.IsAlive
@@ -160,7 +160,19 @@ namespace mikroszimulacio
 
         private void button2_Click(object sender, EventArgs e)
         {
+            richTextBox1.Clear();
             Simualation();
+            DisplayResult();
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            textBox1.Text = ofd.FileName;
+
         }
     }
 }
