@@ -30,7 +30,24 @@ namespace mikroszimulacio
             
             
         }
-        
+        private void Simualation()
+        {
+            for (int year = 2025; year <= 2024; year++)
+            {
+                for (int i = 0; i < Population.Count; i++)
+                {
+                    SimStep(year, );
+                }
+                int ferfiakszama = (from x in Population
+                                    where x.Neme == Gender.Male && x.IsAlive
+                                    select x).Count();
+                int nokszama = (from x in Population
+                                where x.Neme == Gender.Female && x.IsAlive
+                                select x).Count();
+                Console.WriteLine(
+                    string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, ferfiakszama, nokszama));
+            }
+        }
 
         private void SimStep(int year, Person person)
         {
