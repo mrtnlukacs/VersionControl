@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace mikroszimulacio
 {
+
     public partial class Form1 : Form
     {
         List<Person> Population = new List<Person>();
@@ -26,11 +27,46 @@ namespace mikroszimulacio
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
-
-
+            
+            
         }
+        
 
+        private void SimStep(int year, Person person)
+        {
+            
+            if (!person.IsAlive) return;
 
+          
+            byte age = (byte)(year - person.Szulido);
+
+            
+            double pDeath = (from x in DeathProbabilities
+                             where x.Neme == person.Neme && x.kor == age
+                             select x.halalvaloszinuseg).FirstOrDefault();
+           
+            if (rng.NextDouble() <= pDeath)
+                person.IsAlive = false;
+
+            
+            if (person.IsAlive && person.Neme == Gender.Female)
+            {
+               
+                double pBirth = (from x in BirthProbabilities
+                                 where x.kor == age
+                                 select x.szulvaloszinusege).FirstOrDefault();
+               
+                if (rng.NextDouble() <= pBirth)
+                {
+                    Person újszülött = new Person();
+                    újszülött.Szulido = year;
+                    újszülött.Gyerekekszama = 0;
+                    újszülött.Neme = (Gender)(rng.Next(1, 3));
+                    Population.Add(újszülött);
+                }
+            }
+        }
+        
 
         public List<Person> GetPopulation(string csvpath)
         {
@@ -85,7 +121,7 @@ namespace mikroszimulacio
                     var line = sr.ReadLine().Split(';');
                     dp.Add(new DeathProbability()
                     {
-                        nem = int.Parse(line[0]),
+                        Neme = (Gender)Enum.Parse(typeof(Gender), line[1]),
                         kor = int.Parse(line[1]),
                         halalvaloszinuseg = double.Parse(line[2])
                     });
@@ -95,5 +131,19 @@ namespace mikroszimulacio
             return dp;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Simualation();
+        }
     }
 }
